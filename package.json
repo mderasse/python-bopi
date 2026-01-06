@@ -1,0 +1,14 @@
+{
+    "name": "bopi",
+    "version": "0.0.0",
+    "private": true,
+    "description": "BoPi API Client",
+    "scripts": {
+      "prettier": "prettier --write **/*.{json,js,md,yml,yaml} *.{json,js,md,yml,yaml}"
+    },
+    "author": "Matthieu Derasse <opensource@derasse.fr>",
+    "license": "MIT",
+    "devDependencies": {
+      "prettier": "3.7.4"
+    }
+  }
