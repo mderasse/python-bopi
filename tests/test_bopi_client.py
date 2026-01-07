@@ -7,8 +7,8 @@ import aiohttp
 import pytest
 from aresponses import Response, ResponsesMockServer
 
-from bopi import BoPiClient
-from bopi.exceptions import BoPiConfigError, BoPiConnectionError, BoPiError
+from meetbopi import BoPiClient
+from meetbopi.exceptions import BoPiConfigError, BoPiConnectionError, BoPiError
 
 
 async def test_empty_host() -> None:

@@ -2,11 +2,11 @@
 
 import asyncio
 
-from bopi import BoPiClient
+from meetbopi import BoPiClient
 
 
 async def main() -> None:
-    """Show example how to get status of your AdGuard Home instance."""
+    """Show example how to get status of your BoPi API."""
     async with BoPiClient(host="192.168.87.26") as bopi:
         sensorstate = await bopi.get_sensors_state()
         print("Ph Value:", sensorstate.phvalue)

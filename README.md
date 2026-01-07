@@ -147,7 +147,7 @@ SOFTWARE.
 [poetry]: https://python-poetry.org
 [prek]: https://github.com/j178/prek
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[pypi]: https://pypi.org/project/bopi/
+[pypi]: https://pypi.org/project/meetbopi/
 [python-versions-shield]: https://img.shields.io/pypi/pyversions/bopi
 [releases-shield]: https://img.shields.io/github/release/mderasse/python-bopi.svg
 [releases]: https://github.com/mderasse/python-bopi/releases

@@ -1,6 +1,6 @@
 {
-    "name": "bopi",
-    "version": "0.0.0",
+    "name": "meetbopi",
+    "version": "1.0.0",
     "private": true,
     "description": "BoPi API Client",
     "scripts": {

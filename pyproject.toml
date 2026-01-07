@@ -1,13 +1,13 @@
 [project]
-name = "bopi"
-version = "0.0.0"
+name = "meetbopi"
+version = "1.0.0"
 description = "Asynchronous Python client for the Bopi API."
 authors = [{ name = "Matthieu Derasse", email = "opensource@derasse.fr" }]
 maintainers = [{ name = "Matthieu Derasse", email = "opensource@derasse.fr" }]
 license = "MIT"
 requires-python = ">=3.11"
 readme = "README.md"
-keywords = ["bopi", "api", "async", "client"]
+keywords = ["meetbopi", "bopi", "api", "async", "client"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: AsyncIO",
@@ -21,7 +21,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dynamic = ["dependencies"]
-packages = [{ include = "bopi", from = "src" }]
+packages = [{ include = "meetbopi", from = "src" }]
 dependencies = ['aiohttp (>=3.9.0)', 'yarl (>=1.9.0)']
 
 [tool.poetry]
@@ -55,7 +55,7 @@ zizmor = "^1.20.0"
 
 [tool.coverage.run]
 plugins = ["covdefaults"]
-source = ["bopi"]
+source = ["meetbopi"]
 
 [tool.coverage.report]
 show_missing = true

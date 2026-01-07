@@ -2,8 +2,8 @@
 
 import pytest
 
-from bopi.helper import normalize_sensor, require_non_negative, require_range
-from bopi.exceptions import BoPiValidationError
+from meetbopi.helper import normalize_sensor, require_non_negative, require_range
+from meetbopi.exceptions import BoPiValidationError
 
 
 class TestNormalizeSensor:
