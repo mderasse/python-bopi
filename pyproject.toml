@@ -1,6 +1,6 @@
 [project]
 name = "meetbopi"
-version = "1.0.0"
+version = "1.0.1"
 description = "Asynchronous Python client for the Bopi API."
 authors = [{ name = "Matthieu Derasse", email = "opensource@derasse.fr" }]
 maintainers = [{ name = "Matthieu Derasse", email = "opensource@derasse.fr" }]
