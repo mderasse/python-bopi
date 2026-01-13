@@ -38,7 +38,7 @@ class BoPiClient:
         host: str,
         *,
         port: int = 80,
-        request_timeout: int = 30,
+        timeout: int = 30,
         session: aiohttp.client.ClientSession | None = None,
     ) -> None:
         """Initialize connection with BoPi.
@@ -50,7 +50,7 @@ class BoPiClient:
         ----
             host: Hostname or IP address of the BoPi API.
             port: Port on which the API runs, usually 80 or 3000.
-            request_timeout: Max timeout to wait for a response from the API in seconds.
+            timeout: Max timeout to wait for a response from the API in seconds.
             session: Optional, shared, aiohttp client session.
 
         Raises:
@@ -61,20 +61,20 @@ class BoPiClient:
         # Validate inputs
         if not host or not isinstance(host, str):
             msg = "host must be a non-empty string"
-            raise BoPiConfigError(msg)
+            raise BoPiConfigError(msg, field="host")
         if not 1 <= port <= 65535:
             msg = f"port must be between 1 and 65535, got {port}"
-            raise BoPiConfigError(msg)
-        if request_timeout <= 0:
-            msg = f"request_timeout must be positive, got {request_timeout}"
-            raise BoPiConfigError(msg)
+            raise BoPiConfigError(msg, field="port")
+        if timeout <= 0:
+            msg = f"timeout must be positive, got {timeout}"
+            raise BoPiConfigError(msg, field="timeout")
 
         self._session = session
         self._close_session = False
 
         self.host = host
         self.port = port
-        self.request_timeout = request_timeout
+        self.timeout = timeout
         self.sensors_state: SensorsState | None = None  # cached sensor state
 
     # pylint: disable-next=too-many-arguments, too-many-positional-arguments
@@ -130,7 +130,7 @@ class BoPiClient:
             skip_auto_headers = {"Content-Type"}
 
         try:
-            async with asyncio.timeout(self.request_timeout):
+            async with asyncio.timeout(self.timeout):
                 response = await self._session.request(
                     method,
                     url,
@@ -145,14 +145,18 @@ class BoPiClient:
 
         except asyncio.TimeoutError as exception:
             msg = "Timeout occurred while connecting to BoPi API."
-            raise BoPiTimeoutError(msg) from exception
+            raise BoPiTimeoutError(msg, status_code=None, response=None) from exception
         except (aiohttp.ClientConnectorError, socket.gaierror) as exception:
             raise BoPiConnectionError(
-                f"Error occurred while communicating with BoPi: {exception}"
+                f"Error occurred while communicating with BoPi: {exception}",
+                status_code=None,
+                response=None,
             ) from exception
         except aiohttp.ClientError as exception:
             raise BoPiConnectionError(
-                f"Error occurred while communicating with BoPi: {exception}"
+                f"Error occurred while communicating with BoPi: {exception}",
+                status_code=None,
+                response=None,
             ) from exception
 
     async def _handle_response(
@@ -189,7 +193,9 @@ class BoPiClient:
                 error_data = {"message": "Unknown error"}
 
             msg = f"API returned error status {response.status}"
-            raise BoPiError(msg, status_code=response.status, response=error_data)
+            raise BoPiConnectionError(
+                msg, status_code=response.status, response=error_data
+            )
 
         if "application/json" in content_type:
             try:

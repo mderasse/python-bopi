@@ -22,11 +22,11 @@ def require_range(name: str, value: float, min_v: float, max_v: float) -> None:
     """
     if not isinstance(value, (int, float)):
         msg = f"{name} must be a number, got {type(value).__name__}"
-        raise BoPiValidationError(msg)
+        raise BoPiValidationError(msg, field=name)
 
     if not (min_v <= value <= max_v):
         msg = f"{name} out of range: {value} (expected {min_v}-{max_v})"
-        raise BoPiValidationError(msg)
+        raise BoPiValidationError(msg, field=name)
 
 
 def require_non_negative(name: str, value: int) -> None:
@@ -46,11 +46,11 @@ def require_non_negative(name: str, value: int) -> None:
     """
     if not isinstance(value, int):
         msg = f"{name} must be an integer, got {type(value).__name__}"
-        raise BoPiValidationError(msg)
+        raise BoPiValidationError(msg, field=name)
 
     if value < 0:
         msg = f"{name} must be >= 0, got {value}"
-        raise BoPiValidationError(msg)
+        raise BoPiValidationError(msg, field=name)
 
 
 def normalize_sensor(value: float | int) -> float | None:

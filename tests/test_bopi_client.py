@@ -25,12 +25,12 @@ async def test_invalid_port() -> None:
         BoPiClient("example.com", port=65536)
 
 
-async def test_invalid_request_timeout() -> None:
+async def test_invalid_timeout() -> None:
     """Test request timeout validation rejects non-positive values."""
-    with pytest.raises(BoPiConfigError, match="request_timeout must be positive"):
-        BoPiClient("example.com", request_timeout=-1)
-    with pytest.raises(BoPiConfigError, match="request_timeout must be positive"):
-        BoPiClient("example.com", request_timeout=0)
+    with pytest.raises(BoPiConfigError, match="timeout must be positive"):
+        BoPiClient("example.com", timeout=-1)
+    with pytest.raises(BoPiConfigError, match="timeout must be positive"):
+        BoPiClient("example.com", timeout=0)
 
 
 async def test_json_request(aresponses: ResponsesMockServer) -> None:
@@ -116,7 +116,7 @@ async def test_timeout(aresponses: ResponsesMockServer) -> None:
     aresponses.add("example.com", "/", "GET", response_handler)
 
     async with aiohttp.ClientSession() as session:
-        bopiclient = BoPiClient("example.com", session=session, request_timeout=1)
+        bopiclient = BoPiClient("example.com", session=session, timeout=1)
         with pytest.raises(BoPiConnectionError):
             assert await bopiclient.request("/")
 
